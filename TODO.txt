@@ -1,0 +1,192 @@
+*/ Work on testing the starter code /*
+ X Test the EscapeGameInitializer
+ X Test the Location Initializer
+ X Test the Piece Attribute
+ X Test the Piece Type Descriptor
+ X Test the Rule Descriptor
+ 
+ 
+ */ Create a Game Piece /*
+ X GamePiece contains the player
+ X GamePiece contains the name
+ 
+ */ Create Coordinate /*
+ X Create a square coordinate
+ X Get the X and Y of the square coordinate
+ X Get the location type of a square coordinate
+ X Create a hex coordinate with the same requirements as above
+ X Create an abstract class that encapsulates the similarities between Hex and Square
+ X Create a CoordinateFactory that handles creating Coordinates
+ X Have a coordinate contain a GamePiece
+ X Have a coordinate remove a GamePiece
+ 
+ */ Coordinates can return it's neighbors */
+ X Have a coordinate return all of it's neighbors - Square
+ 
+ X Create Directions for Square
+ X Create Directions for Hex
+ X Have a coordinate store direction (Used for pathfinding eventually)
+ X Have the neighbors returned store the direction
+ 
+ */ GamePiece continued /*
+ X GamePiece contains movement pattern
+ X GamePiece contains a pointValue
+ X GamePiece contains a distance
+ X GamePiece contains fly
+ X GamePiece contains Jump
+ X GamePiece contains Unblock
+ 
+ /* Restructuring GamePiece */
+ X Create a PlayerPiece that contains the player owner and GamePiece
+ X Name is stored in GamePiece
+ X PlayerPiece uses GamePiece to get name
+ 
+ /* Create a board */
+ X Create a board object of correct coordinate type
+ X Create a board object with max dimensions
+ X Create a raw coordinate - for the keys
+ X add coordinates on the board
+ X Create an equals method for coordinate (Just on the x and y)
+ X Create a way to get from a coordinate to a real coordinate on the board
+ X Create a way to get a GamePiece and its attributes
+ 
+ /* Create Player information */
+ X Create an object for the player
+ X Get the player name
+ X Store the PlayerPieces with the player
+ X able to remove player pieces
+ X check to see if they have pieces remaining
+ - Get and update the player's score
+ 
+ /* Create a Rules Object */
+ X Create an object for 1 rule
+ X Create an object to store all the rules
+ X Create a function to check if the game has reached the turn limit
+ X Create a function to check if score has been reached
+ X Check to see which player wins with the highest score
+ X Account for draws
+ 
+ /* Create a GameManager */
+ X Create a GameManager with the correct coordinateType
+ X Create a board object initially with dimensions
+ X Give the board the GamePieces
+ X make a coordinate for the setup
+ X Setup the board with the proper locations of game pieces
+ X Setup the board with the special locations
+ X Set the rules of the game
+ X Create the GameManager inside of the Builder
+ X Make a coordinate
+ X Get the piece at a specific coordinate
+
+ /* Moving a piece */
+ X Check to see if a piece exists
+ X Check to see if the coordinate exists
+ X Create a path between coordinates
+ X Have a filter for board that allows to be only inside the coords
+ X Have a filter that avoids other coordinates with pieces
+ X Update the filter to allow for EXIT
+ X Move a piece from coord1 to coord2
+ X Move a piece from coord1 to exit
+ X Have the game manager switch between players
+ X Determine if the game ends by turn limit
+ X Determine if the game ends by score limit
+ X Determine if the game ends by game pieces running out
+ X Have a player move to a spot and back to their original spot
+ 
+ /*******************STARTING PART 2 ***********************************/
+ 
+ /* Restructuring code */
+ X Have Board be of type <IBaseCoordinate> - This is to remove most casting
+ X Have coordinate factory be a global variable to utilize the singleton
+ X Have GameManagerImp use IBaseCoordinate as the generic
+ X Have coordinate factory take in the type and return the correct coordinate
+ 
+ /*Fixing previous tests */
+ X Return false if the piece goes to the same location
+ 
+ /* Observers */
+ X Create a GameObserver
+ X Implement a notify method without Throwable
+ X Implement notify with Throwable
+ X Have the GameManager have a list of observers
+ X Have the GameManager add observers
+ X Have the GameManager remove observers
+ X Have GameManager have a notifyAll method that notifies all the observers
+ X notifyAll but with Throwables
+ X Have the messages be stored in Strings for testing
+ - Move the prints to the observers
+ 
+ /* Modifying movement */
+ X Create a Neighbor validator Functional Interface
+ 	X Takes in original coordinate, list of neighbors, player piece, rules, board
+ 	X Returns a list of neighbors that works for that game piece
+ X Create a filter function that doesn't allow for exits
+ X Create a Neighbor validator for OMNI direction
+ X Have a GamePiece have the NeighborValidator as an attribute
+ X Ensure that OMNI works for original tests
+
+/* Omni Movement */
+X Make a simple move test for
+X Go to an exit
+X Player can't move after the game ends
+X Game is over by number of pieces left
+X Game is over by score
+X Game is over by number of turns (whoever has the higher score wins)
+X Make sure you can't move from a coord with no piece
+
+/* Using Fly */
+X Have fly move around players
+X Have fly move around Block
+X A piece can't land on Block if they have fly
+X A piece can't land on a player if the rule remove is not in play
+
+/* Using Unblock */
+X Can go past block coord
+X Can't land on a block
+X players without unblock can't go past unblock
+X Can't move from a Block space
+
+/* Testing Remove */
+X Player1 can take out an opposing player
+X Player2 can't move from the spot where they lost their piece
+X Player2 can remove a piece
+X Player can win after removing all of the opposing pieces
+X Player can't land on their own player piece
+
+ /* Path requires to use the Exit */
+ X If the player has a path and it has an exit, then it will exit
+ X player can avoid the exit if it can
+ 
+ /* Linear Movement */
+ X Have a filter for pieces with Linear Movement
+ X Filter takes in previous location and determines correct neighbors
+ X Filter uses the same attribute filter as OMNI
+ X Piece with Linear goes in linear direction
+ X Piece can't go to a location that isn't linear
+ X Works on Square
+ X Works on Hex
+ X Player can't go past block
+ X Player can't go past opponent
+ X Player can't go past their own pieces
+ 
+ 
+ /* Diagonal Movement */
+ X Create a diagonal filter */
+ X Give it to GamePiece
+ X Test Diagonal direction 
+ X Does not move orthoganal
+ X gets blocked by Block
+ 
+  /* Orthogonal Movement */
+ X Create a orthogonal filter */
+ X Give it to GamePiece
+ X Test Orthogonal direction 
+ X Does not move diagonal
+ X gets blocked by Block
+ 
+ /* Skew Movement */
+ X Create a skew filter */
+ X Give it to GamePiece
+ X Test Skew direction 
+ X Test Skew not working
+ 
